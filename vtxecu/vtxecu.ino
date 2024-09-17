@@ -8,7 +8,8 @@ const int CLK = 6;
 const int DIO = 5;
 const int Clutch = 8;
 const int Neutral = 9;
-const int Blinker = 11;
+const int LeftBlinker = 11;
+const int RightBlinker = 13;
 
 //Constants
 const int RotationsPerPulse = 2;
@@ -28,7 +29,8 @@ void setup() {
   pinMode(A0, INPUT);
   pinMode(Clutch, INPUT);
   pinMode(Neutral, INPUT);
-  pinMode(Blinker, INPUT);
+  pinMode(LeftBlinker, INPUT);
+  pinMode(RightBlinker, INPUT);
 
   Serial.begin(9600);
   GpsSerial.begin(9600);
@@ -44,7 +46,7 @@ void loop() {
   calculateRpm();
 
   Serial.println("Blinkers check");
-  blinkerWarning(digitalRead(Blinker) == HIGH);
+  blinkerWarning(digitalRead(LeftBlinker) + digitalRead(RightBlinker));
 
   if (digitalRead(Clutch) == LOW) {
     Serial.println("Clutch released, selecting gear");
@@ -116,7 +118,7 @@ void calculateRpm() {
 }
 
 void blinkerWarning(int blinkerPin) {
-  if (blinkerPin == HIGH) {
+  if (blinkerPin >= HIGH) {
     Serial.println("Disabling display");
     Display.setBrightness(7, false);
   } else {

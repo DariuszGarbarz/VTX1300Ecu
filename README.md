@@ -1,2 +1,4 @@
 # VTX1300Ecu
-Ecu function for my father's motorcycle Honda VTX 1300
+Gear, neutral, turn indicator and rpm functions for Honda VTX1300
+
+![Schematic](./vtxecuconnections.PNG)
